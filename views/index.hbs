@@ -1,0 +1,452 @@
+<body>
+  <div class="main" style="align: center;">
+    <div class="bcls-code code">
+<!-- Document Search Functions START -->
+      <h2>Support Docs and Tickets Search</h2>
+      <p><strong>JIRA, SalesForce, Support Docs Search</strong></p>
+      <fieldset>
+        <legend><strong>Inputs</strong></legend>
+        <p><strong>Search Term: </strong><input type="text" id="searchTerm" name="searchTerm" size="50"/></p>
+        <br>
+        <button class="bcls-button" onclick="supSearch()">Support Docs</button>
+        <button class="bcls-button" onclick="sfSearch()">SalesForce</button>
+        <button class="bcls-button" onclick="jiraSearch()">JIRA</button>
+
+        <!-- Support Docs Search -->
+        <script type=text/javascript>
+        function supSearch() {
+          var searchText = document.getElementById("searchTerm").value;
+          if(searchText) {
+            window.open("https://support.brightcove.com/search?search=" + document.getElementById('searchTerm').value);
+          }
+          else {
+            alert("Search Term Required");
+          }
+        }
+        </script>
+
+        <!-- SalesForce Case Search -->
+        <script type=text/javascript>
+        function sfSearch() {
+          var searchText = document.getElementById("searchTerm").value;
+          if(searchText) {
+            window.open("https://na20.salesforce.com/_ui/search/ui/UnifiedSearchResults?searchType=2&str=" + document.getElementById('searchTerm').value);
+          }
+          else {
+            alert("Search Term Required");
+          }
+        }
+        </script>
+
+        <!-- JIRA Ticket Search -->
+        <script type=text/javascript>
+        function jiraSearch() {
+          var searchText = document.getElementById("searchTerm").value;
+          if(searchText) {
+            window.open("https://jira.brightcove.com/secure/QuickSearch.jspa?searchString=" + document.getElementById('searchTerm').value);
+          }
+          else {
+            alert("Search Term Required");
+          }
+        }
+        </script>
+      </fieldset>
+<!-- Document Search Functions END -->
+      <br><br>
+<!-- Account Tasks START -->
+      <h2>Wacky and Jackie Pages Account Tasks</h2>
+      <p><strong>Common Account Functions</strong></p>
+      <fieldset>
+        <legend><strong>Inputs</strong></legend>
+        <p><strong>Acct ID: &nbsp;&nbsp;</strong><input type="text" id="account" name="account" size="50"/></p>
+        <p><strong>Video ID: </strong><input type="text" id="video" name="video" size="50"/></p>
+        <br>
+        <button class="bcls-button" onclick="legAccount()">Account Lookup</button>
+        <button class="bcls-button" onclick="legImp()">Impersonate User</button>
+        <button class="bcls-button" onclick="listUsers()">List Users</button>
+        <button class="bcls-button" onclick="legTitle()">Legacy Video Info</button>
+        <button class="bcls-button" onclick="ddTitle()">DD Video Info</button>
+        <button class="bcls-button" onclick="delVideo()">Deleted Videos</button>
+        <button class="bcls-button" onclick="medSharing()">Media Sharing</button>
+        <br><br>
+        <button class="bcls-button" onclick="ddAccount()">DD Acct Config</button>
+        <button class="bcls-button" onclick="ddIngest()">DD Ingest Jobs</button>
+        <button class="bcls-button" onclick="audienceConf()">Audience Config</button>
+        <button class="bcls-button" onclick="galleryConf()">Gallery Config</button>
+        <button class="bcls-button" onclick="videoHistory()">Video Dist. History</button>
+        <button class="bcls-button" onclick="bcLiveConf()">BC Live Config</button>
+        <button class="bcls-button" onclick="setiConf()">SETI Config</button>
+        <br>
+
+        <!-- Account Lookup Function -->
+        <script type="text/javascript">
+        function legAccount() {
+          var acctVariable = document.getElementById("account").value;
+          if(acctVariable) {
+            window.open("https://services.brightcove.com/services/internal/mvc/account/search?term=" + document.getElementById('account').value + "&settings=routeIngestRequestsToMannheim");
+          }
+          else {
+            alert("Publisher ID Required");
+          }
+        }
+        </script>
+
+        <!-- Impersonate User Function -->
+        <script type="text/javascript">
+        function legImp() {
+          var acctVariable = document.getElementById("account").value;
+          if(acctVariable) {
+            window.open("https://services.brightcove.com/services/internal/mvc/user/search?userQuery=" + document.getElementById('account').value);
+          }
+          else {
+            alert("Publisher ID Required");
+          }
+        }
+        </script>
+
+        <!-- List Users Function -->
+        <script type="text/javascript">
+        function listUsers() {
+          var acctVariable = document.getElementById("account").value;
+          if(acctVariable) {
+            window.open("https://jsp.brightcove.com/accounts/account-users?account=" + document.getElementById('account').value);
+          }
+          else {
+            alert("Publisher ID Required");
+          }
+        }
+        </script>
+
+        <!-- Legacy List Title Function -->
+        <script type="text/javascript">
+        function legTitle() {
+          var acctVariable = document.getElementById("video").value;
+          if(acctVariable) {
+            window.open("https://services.brightcove.com/services/internal/browser/listPubVideo.jsp?id=" + document.getElementById('video').value + "&SUBMIT=SUBMIT");
+          }
+          else {
+            alert("Publisher ID Required");
+          }
+        }
+        </script>
+
+        <!-- DD List Title Function -->
+        <script type="text/javascript">
+        function ddTitle() {
+          var acctVariable = document.getElementById("account").value;
+          var videoVariable = document.getElementById("video").value;
+          if(acctVariable && videoVariable) {
+            window.open("https://jsp.brightcove.com/catalog/video?accountId=" + document.getElementById('account').value + "&videoId=" + document.getElementById('video').value);
+          }
+          else {
+            alert("Publisher ID and Video ID Required");
+          }
+        }
+        </script>
+
+        <!-- Deleted Videos Function -->
+        <script type="text/javascript">
+        function delVideo() {
+          var acctVariable = document.getElementById("account").value;
+          var videoVariable = document.getElementById("video").value;
+          if(acctVariable || acctVariable && videoVariable) {
+            window.open("https://jsp.brightcove.com/catalog/video_deleted?accountId=" + document.getElementById('account').value + "&videoId=" + document.getElementById('video').value);
+          }
+          else {
+            alert("Publisher ID or Publisher and Video ID Required");
+          }
+        }
+        </script>
+
+        <!-- Media Sharing Function -->
+        <script type="text/javascript">
+        function medSharing() {
+          var acctVariable = document.getElementById("account").value;
+          if(acctVariable) {
+            window.open("https://jsp.brightcove.com/catalog/sharing?accountId=" + document.getElementById('account').value);
+          }
+          else {
+            alert("Publisher ID Required");
+          }
+        }
+        </script>
+
+        <!-- DD Account Config Function -->
+        <script type="text/javascript">
+        function ddAccount() {
+          var acctVariable = document.getElementById("account").value;
+          if(acctVariable) {
+            window.open("https://jsp.brightcove.com/dynamic-delivery/account-info?accountId=" + document.getElementById('account').value);
+          }
+          else {
+            alert("Publisher ID Required");
+          }
+        }
+        </script>
+
+        <!-- DD Ingest Jobs Function -->
+        <script type="text/javascript">
+        function ddIngest() {
+          var acctVariable = document.getElementById("account").value;
+          if(acctVariable) {
+            window.open("https://jsp.brightcove.com/dynamic-delivery/account-ingests?accountId=" + document.getElementById('account').value);
+          }
+          else {
+            alert("Publisher ID Required");
+          }
+        }
+        </script>
+
+        <!-- Audience Config Function -->
+        <script type="text/javascript">
+        function audienceConf() {
+          var acctVariable = document.getElementById("account").value;
+          if(acctVariable) {
+            window.open("https://jsp.brightcove.com/audience/accounts?accountId=" + document.getElementById('account').value);
+          }
+          else {
+            alert("Publisher ID Required");
+          }
+        }
+        </script>
+
+        <!-- Gallery Config Function -->
+        <script type="text/javascript">
+        function galleryConf() {
+          var acctVariable = document.getElementById("account").value;
+          if(acctVariable) {
+            window.open("https://jsp.brightcove.com/experiences/accounts?accountId=" + document.getElementById('account').value);
+          }
+          else {
+            alert("Publisher ID Required");
+          }
+        }
+        </script>
+
+        <!-- Video Distribution History Function -->
+        <script type="text/javascript">
+        function videoHistory() {
+          var acctVariable = document.getElementById("video").value;
+          if(acctVariable) {
+            window.open("https://jsp.brightcove.com/social/video-history?videoId=" + document.getElementById('video').value);
+          }
+          else {
+            alert("Video ID Required");
+          }
+        }
+        </script>
+
+        <!-- BC Live Config Function -->
+        <script type="text/javascript">
+        function bcLiveConf() {
+          var acctVariable = document.getElementById("account").value;
+          if(acctVariable) {
+            window.open("https://jsp.brightcove.com/live/account-details?liveAccountId=" + document.getElementById('account').value);
+          }
+          else {
+            alert("Publisher ID Required");
+          }
+        }
+        </script>
+
+        <!-- SETI Config Function -->
+        <script type="text/javascript">
+        function setiConf() {
+          var acctVariable = document.getElementById("account").value;
+          if(acctVariable) {
+            window.open("https://jsp.brightcove.com/seti/account?accountID=" + document.getElementById('account').value + "&setiPath=");
+          }
+          else {
+            alert("Publisher ID Required");
+          }
+        }
+        </script>
+      </fieldset>
+<!-- Account Tasks END -->
+
+      <br><br>
+<!-- Standalone Player Testing START -->
+      <h2>Standalone Player Testing</h2>
+      <p><strong>Builds Player in New Tab</strong></p>
+      <fieldset>
+        <legend><strong>Inputs</strong></legend>
+        <p><strong>Acct ID: &nbsp;&nbsp;</strong><input type="text" id="acctId" name="account" size="50"/></p>
+        <p><strong>Player ID: </strong><input type="text" id="playerId" name="player" size="50"/></p>
+        <p><strong>Video ID: &nbsp;</strong><input type="text" id="vidId" name="video" size="50"/></p>
+        <br>
+        <button class="bcls-button" onclick="iframeLoad()">iFrame Embed</button>
+        <button class="bcls-button" onclick="advancedLoad()">Advanced Embed</button>
+        <button class="bcls-button" onclick="playerConfig()">Player Configuration</button>
+
+        <!-- iFrame Embed Build -->
+        <script type="text/javascript">
+        function iframeLoad() {
+          var acctVariable = document.getElementById("acctId").value;
+          var playerVariable = document.getElementById("playerId").value;
+          var videoVariable = document.getElementById("vidId").value;
+          if(acctVariable && playerVariable && videoVariable) {
+            var newWindow = window.open("https://cs1.brightcodes.net/jcefalo/acct_tool/standalone_iframe.html");
+            newWindow.document.write("<iframe src=//players.brightcove.net/" + document.getElementById('acctId').value + "/" + document.getElementById('playerId').value + "_default/index.html?videoId=" + document.getElementById('vidId').value + " allowfullscreen webkitallowfullscreen mozallowfullscreen width=\"640\" height=\"360\"></iframe>");
+          }
+          else {
+            alert("All Fields Are Required");
+          }
+        }
+        </script>
+
+        <!-- Advanced Embed Build -->
+        <script type="text/javascript">
+        function advancedLoad() {
+          var acctVariable = document.getElementById("acctId").value;
+          var playerVariable = document.getElementById("playerId").value;
+          var videoVariable = document.getElementById("vidId").value;
+          var videoEmbed = "<video data-video-id=" + document.getElementById('vidId').value + " data-account=" + document.getElementById('acctId').value + " data-player=" + document.getElementById('playerId').value + " data-embed=\"default\" data-application-id class=\"video-js\" controls width=\"640\" height=\"360\"></video>";
+          var scriptEmbed = "<script src=\"//players.brightcove.net/" + document.getElementById('acctId').value + "/" + document.getElementById('playerId').value + "_default/index.min.js\"><\/script>";
+          if(acctVariable && playerVariable && videoVariable) {
+            var newWindow = window.open("https://cs1.brightcodes.net/jcefalo/acct_tool/standalone_advanced.html");
+            newWindow.document.write(videoEmbed + scriptEmbed);
+          }
+          else {
+            alert("All Fields Are Required");
+          }
+        }
+        </script>
+
+        <!-- Player Config Build -->
+        <script type="text/javascript">
+        function playerConfig() {
+          var acctVariable = document.getElementById("acctId").value;
+          var playerVariable = document.getElementById("playerId").value;
+          if(acctVariable && playerVariable) {
+            var newWindow = window.open("https://players.brightcove.net/" + document.getElementById('acctId').value + "/" + document.getElementById('playerId').value + "_default/config.json");
+          }
+          else {
+            alert("Publisher ID & Player ID Required");
+          }
+        }
+        </script>
+      </fieldset>
+<!-- Standalone Player Testing END -->
+      <br><br>
+<!-- Obtain Client Creds token input START -->
+      <h2>Obtain Bearer Token via Client Credentials</h2>
+      <p><strong>Upon Input, Will Return Access Token</strong></p>
+      <fieldset>
+        <legend><strong>Inputs</strong></legend>
+        <p><strong>Client ID: &ensp;</strong><input id="clientId" type="text" size="50" /></p>
+        <p><strong>Client Secret: </strong><input id="clientSecret" type="text" size="50" /></p>
+        <br>
+        <p><button id="submitButton" class="bcls-button">Get Access Token</button></p>
+      </fieldset>
+<!-- Client Creds token input END -->
+      <br>
+      <fieldset>
+<!-- Client Creds token output START -->
+        <legend><strong>Output</strong></legend>
+        <h3>Access token</h3>
+        <textarea name="accessToken" id="accessToken" class="bcls-code">Access token will appear here...</textarea>
+      </fieldset>
+<!-- Client Creds token output END -->
+
+<!-- POSSIBLE API SECTION -->
+<!-- VERY UNDER CONSTRUCTION -->
+      <!-- <br><br>
+      <h2>Brightcove API's</h2>
+      <h4> CURRENTLY UNDER CONSTRUCTION</h4>
+      <p><strong>Select Cooresponding Button For Available Calls</strong></p>
+      <button onclick="analytics()" class="bcls-button">Analytics API</button>
+      <div class="apiDiv" id="analyticsDiv" style="display: none;">Analytics API Schema</div>
+      <button onclick="audience()" class="bcls-button">Audience API</button>
+      <div class="apiDiv" id="audienceDiv" style="display: none;">Audience API Schema</div>
+      <button onclick="bclive()" class="bcls-button">BC Live API</button>
+      <div class="apiDiv" id="bcliveDiv" style="display: none;">BC Live API Schema</div>
+      <button onclick="cms()" class="bcls-button">CMS API</button>
+      <div class="apiDiv" id="cmsDiv" style="display: none;">CMS API Calls.</div>
+      <br>
+      <button onclick="dynamic()" class="bcls-button">Dynamic Ingest API</button>
+      <div class="apiDiv" id="dynamicDiv" style="display: none;">Dynamic Ingest API Schema</div>
+      <button onclick="ingest()" class="bcls-button">Ingest Profiles API</button>
+      <div class="apiDiv" id="ingestDiv" style="display: none;">Ingest Profiles API Schema</div>
+      <button onclick="playback()" class="bcls-button">Playback API</button>
+      <div class="apiDiv" id="playbackDiv" style="display: none;">Playback API Schema</div>
+      <button onclick="playerMang()" class="bcls-button">Player Management API</button>
+      <div class="apiDiv" id="playerMangDiv" style="display: none;">Player Management API Schema</div>
+      <br><br>
+    </div>
+
+    <script>
+      function analytics() {
+        var x = document.getElementById("analyticsDiv");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+
+      function audience() {
+        var x = document.getElementById("audienceDiv");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+
+      function bclive() {
+        var x = document.getElementById("bcliveDiv");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+
+      function cms() {
+        var x = document.getElementById("cmsDiv");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+
+      function dynamic() {
+        var x = document.getElementById("dynamicDiv");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+
+      function ingest() {
+        var x = document.getElementById("ingestDiv");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+
+      function playback() {
+        var x = document.getElementById("playbackDiv");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+
+      function playerMang() {
+        var x = document.getElementById("playerMangDiv");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+    </script>
+    <br> -->
+  <script src="js/index.js"></script>
+</body>
