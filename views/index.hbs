@@ -1,6 +1,6 @@
 <body>
   <div class="main" style="align: center;">
-    <div class="bcls-code code">
+    <div class="main-code code">
 <!-- Document Search Functions START -->
       <h2>Support Docs and Tickets Search</h2>
       <p><strong>JIRA, SalesForce, Support Docs Search</strong></p>
@@ -8,9 +8,9 @@
         <legend><strong>Inputs</strong></legend>
         <p><strong>Search Term: </strong><input type="text" id="searchTerm" name="searchTerm" size="50"/></p>
         <br>
-        <button class="bcls-button" onclick="supSearch()">Support Docs</button>
-        <button class="bcls-button" onclick="sfSearch()">SalesForce</button>
-        <button class="bcls-button" onclick="jiraSearch()">JIRA</button>
+        <button class="main-button" onclick="supSearch()">Support Docs</button>
+        <button class="main-button" onclick="sfSearch()">SalesForce</button>
+        <button class="main-button" onclick="jiraSearch()">JIRA</button>
 
         <!-- Support Docs Search -->
         <script type=text/javascript>
@@ -61,21 +61,21 @@
         <p><strong>Acct ID: &nbsp;&nbsp;</strong><input type="text" id="account" name="account" size="50"/></p>
         <p><strong>Video ID: </strong><input type="text" id="video" name="video" size="50"/></p>
         <br>
-        <button class="bcls-button" onclick="legAccount()">Account Lookup</button>
-        <button class="bcls-button" onclick="legImp()">Impersonate User</button>
-        <button class="bcls-button" onclick="listUsers()">List Users</button>
-        <button class="bcls-button" onclick="legTitle()">Legacy Video Info</button>
-        <button class="bcls-button" onclick="ddTitle()">DD Video Info</button>
-        <button class="bcls-button" onclick="delVideo()">Deleted Videos</button>
-        <button class="bcls-button" onclick="medSharing()">Media Sharing</button>
+        <button class="main-button" onclick="legAccount()">Account Lookup</button>
+        <button class="main-button" onclick="legImp()">Impersonate User</button>
+        <button class="main-button" onclick="listUsers()">List Users</button>
+        <button class="main-button" onclick="legTitle()">Legacy Video Info</button>
+        <button class="main-button" onclick="ddTitle()">DD Video Info</button>
+        <button class="main-button" onclick="delVideo()">Deleted Videos</button>
+        <button class="main-button" onclick="medSharing()">Media Sharing</button>
         <br><br>
-        <button class="bcls-button" onclick="ddAccount()">DD Acct Config</button>
-        <button class="bcls-button" onclick="ddIngest()">DD Ingest Jobs</button>
-        <button class="bcls-button" onclick="audienceConf()">Audience Config</button>
-        <button class="bcls-button" onclick="galleryConf()">Gallery Config</button>
-        <button class="bcls-button" onclick="videoHistory()">Video Dist. History</button>
-        <button class="bcls-button" onclick="bcLiveConf()">BC Live Config</button>
-        <button class="bcls-button" onclick="setiConf()">SETI Config</button>
+        <button class="main-button" onclick="ddAccount()">DD Acct Config</button>
+        <button class="main-button" onclick="ddIngest()">DD Ingest Jobs</button>
+        <button class="main-button" onclick="audienceConf()">Audience Config</button>
+        <button class="main-button" onclick="galleryConf()">Gallery Config</button>
+        <button class="main-button" onclick="videoHistory()">Video Dist. History</button>
+        <button class="main-button" onclick="bcLiveConf()">BC Live Config</button>
+        <button class="main-button" onclick="setiConf()">SETI Config</button>
         <br>
 
         <!-- Account Lookup Function -->
@@ -270,13 +270,13 @@
       <p><strong>Builds Player in New Tab</strong></p>
       <fieldset>
         <legend><strong>Inputs</strong></legend>
-        <p><strong>Acct ID: &nbsp;&nbsp;</strong><input type="text" id="acctId" name="account" size="50"/></p>
-        <p><strong>Player ID: </strong><input type="text" id="playerId" name="player" size="50"/></p>
+        <p><strong>Account ID: </strong><input type="text" id="acctId" name="account" size="50"/></p>
+        <p><strong>Player ID: &nbsp;&nbsp;</strong><input type="text" id="playerId" name="player" size="50"/></p>
         <p><strong>Video ID: &nbsp;</strong><input type="text" id="vidId" name="video" size="50"/></p>
         <br>
-        <button class="bcls-button" onclick="iframeLoad()">iFrame Embed</button>
-        <button class="bcls-button" onclick="advancedLoad()">Advanced Embed</button>
-        <button class="bcls-button" onclick="playerConfig()">Player Configuration</button>
+        <button class="main-button" onclick="iframeLoad()">iFrame Embed</button>
+        <button class="main-button" onclick="advancedLoad()">Advanced Embed</button>
+        <button class="main-button" onclick="playerConfig()">Player Configuration</button>
 
         <!-- iFrame Embed Build -->
         <script type="text/javascript">
@@ -336,10 +336,10 @@
       <p><strong>Upon Input, Will Return Access Token</strong></p>
       <fieldset>
         <legend><strong>Inputs</strong></legend>
-        <p><strong>Client ID: &ensp;</strong><input id="clientId" type="text" size="50" /></p>
-        <p><strong>Client Secret: </strong><input id="clientSecret" type="text" size="50" /></p>
+        <p><strong>Client ID: &nbsp;&nbsp;</strong><input id="clientId" type="text" size="65" /></p>
+        <p><strong>Client Secret: </strong><input id="clientSecret" type="text" size="65" /></p>
         <br>
-        <p><button id="submitButton" class="bcls-button">Get Access Token</button></p>
+        <p><button id="submitButton" class="main-button">Get Access Token</button></p>
       </fieldset>
 <!-- Client Creds token input END -->
       <br>
@@ -347,108 +347,38 @@
 <!-- Client Creds token output START -->
         <legend><strong>Output</strong></legend>
         <h3>Access token</h3>
-        <textarea name="accessToken" id="accessToken" class="bcls-code">Access token will appear here...</textarea>
+        <textarea name="accessToken" id="accessToken" class="main-code">Access token will appear here...</textarea>
       </fieldset>
 <!-- Client Creds token output END -->
 
-<!-- POSSIBLE API SECTION -->
-<!-- VERY UNDER CONSTRUCTION -->
-      <!-- <br><br>
-      <h2>Brightcove API's</h2>
-      <h4> CURRENTLY UNDER CONSTRUCTION</h4>
-      <p><strong>Select Cooresponding Button For Available Calls</strong></p>
-      <button onclick="analytics()" class="bcls-button">Analytics API</button>
-      <div class="apiDiv" id="analyticsDiv" style="display: none;">Analytics API Schema</div>
-      <button onclick="audience()" class="bcls-button">Audience API</button>
-      <div class="apiDiv" id="audienceDiv" style="display: none;">Audience API Schema</div>
-      <button onclick="bclive()" class="bcls-button">BC Live API</button>
-      <div class="apiDiv" id="bcliveDiv" style="display: none;">BC Live API Schema</div>
-      <button onclick="cms()" class="bcls-button">CMS API</button>
-      <div class="apiDiv" id="cmsDiv" style="display: none;">CMS API Calls.</div>
-      <br>
-      <button onclick="dynamic()" class="bcls-button">Dynamic Ingest API</button>
-      <div class="apiDiv" id="dynamicDiv" style="display: none;">Dynamic Ingest API Schema</div>
-      <button onclick="ingest()" class="bcls-button">Ingest Profiles API</button>
-      <div class="apiDiv" id="ingestDiv" style="display: none;">Ingest Profiles API Schema</div>
-      <button onclick="playback()" class="bcls-button">Playback API</button>
-      <div class="apiDiv" id="playbackDiv" style="display: none;">Playback API Schema</div>
-      <button onclick="playerMang()" class="bcls-button">Player Management API</button>
-      <div class="apiDiv" id="playerMangDiv" style="display: none;">Player Management API Schema</div>
+<!-- API SECTION -->
+<!-- UNDER CONSTRUCTION -->
       <br><br>
-    </div>
-
-    <script>
-      function analytics() {
-        var x = document.getElementById("analyticsDiv");
-        if (x.style.display === "none") {
-          x.style.display = "block";
-        } else {
-          x.style.display = "none";
-        }
-      }
-
-      function audience() {
-        var x = document.getElementById("audienceDiv");
-        if (x.style.display === "none") {
-          x.style.display = "block";
-        } else {
-          x.style.display = "none";
-        }
-      }
-
-      function bclive() {
-        var x = document.getElementById("bcliveDiv");
-        if (x.style.display === "none") {
-          x.style.display = "block";
-        } else {
-          x.style.display = "none";
-        }
-      }
-
-      function cms() {
-        var x = document.getElementById("cmsDiv");
-        if (x.style.display === "none") {
-          x.style.display = "block";
-        } else {
-          x.style.display = "none";
-        }
-      }
-
-      function dynamic() {
-        var x = document.getElementById("dynamicDiv");
-        if (x.style.display === "none") {
-          x.style.display = "block";
-        } else {
-          x.style.display = "none";
-        }
-      }
-
-      function ingest() {
-        var x = document.getElementById("ingestDiv");
-        if (x.style.display === "none") {
-          x.style.display = "block";
-        } else {
-          x.style.display = "none";
-        }
-      }
-
-      function playback() {
-        var x = document.getElementById("playbackDiv");
-        if (x.style.display === "none") {
-          x.style.display = "block";
-        } else {
-          x.style.display = "none";
-        }
-      }
-
-      function playerMang() {
-        var x = document.getElementById("playerMangDiv");
-        if (x.style.display === "none") {
-          x.style.display = "block";
-        } else {
-          x.style.display = "none";
-        }
-      }
-    </script>
-    <br> -->
+<!-- API Request input START -->
+      <div class="form-wrapper">
+        <h2>Brightcove API Section</h2>
+        <p><strong>Make Various API Requests</strong></p>
+      <fieldset>
+        <legend><strong>Inputs</strong></legend>
+          <p><strong>Bearer Token: </strong><input type="text" id="bearer_id" name="bearer_id" size="65"/></p>
+          <p><strong>Request Type: </strong><select name="requestType" id="requestType"><option selected="selected">GET</option><option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option></select></p>
+          <p><strong>API Request: </strong></p>
+            <textarea id="apiRequest" name="apiRequest" class="main-code"></textarea>
+          <p><strong>Call Body (JSON, Optional): <strong></p>
+            <textarea name="apiBody" id="apiBody" class="main-code"></textarea>
+          <br><br>
+          <button class="main-button" id="submit" type="submit">Submit</button>
+        </fieldset>
+<!-- API Request input END -->
+        <br>
+<!-- API Request output START -->
+        <fieldset>
+          <legend><strong>Output</strong></legend>
+          <p><strong>Response:</strong></p>
+          <textarea name="response" id="response" class="main-code">JSON Response will appear here...</textarea></p>
+          <br>
+        </fieldset>
+      </div>
+<!-- API Request output END -->
+    <br><br>
 </body>

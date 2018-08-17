@@ -1,4 +1,4 @@
-.bcls-code {
+.main-code {
   color: #111;
   /* font-family: 'Source Code Pro',monospace; */
   font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
@@ -8,7 +8,7 @@
   background-color: #cfcfcf; /* grey */
   font-size: 12px;
 }
-.bcls-button{
+.main-button{
   background: #D5247B;
   color: #fff;
   position: relative;
@@ -22,11 +22,11 @@
   border: 1px #089AB3 solid;
   border-radius: .5em;
 }
-.bcls-button:hover{
+.main-button:hover{
   background: #fff;
   color: #D5247B;
 }
-.bcls-button:before,.bcls-button:after{
+.main-button:before,.main-button:after{
   content: '';
   position: absolute;
   top: 0;
@@ -36,13 +36,13 @@
   background: #D5247B;
   transition: 400ms ease all;
 }
-.bcls-button:after{
+.main-button:after{
   right: inherit;
   top: inherit;
   left: 0;
   bottom: 0;
 }
-.bcls-button:hover:before,.bcls-button:hover:after{
+.main-button:hover:before,.main-button:hover:after{
   width: 100%;
   transition: 800ms ease all;
 }
@@ -79,4 +79,8 @@ code {
   text-align: center;
   background-color: #cfcfcf;
   margin-top: 20px;
+}
+
+#sideElements {
+  display: inline-block;
 }

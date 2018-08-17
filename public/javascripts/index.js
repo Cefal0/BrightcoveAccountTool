@@ -1,4 +1,4 @@
-var BCLS = ( function (window, document) {
+var getClientCredentials = ( function (window, document) {
   var clientId   = document.getElementById('clientId'),
     clientSecret = document.getElementById('clientSecret'),
     submitButton = document.getElementById('submitButton'),
