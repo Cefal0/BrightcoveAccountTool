@@ -332,18 +332,22 @@
 <!-- Standalone Player Testing END -->
       <br><br>
 <!-- Obtain Client Creds token input START -->
-      <h2>Obtain Bearer Token via Client Credentials</h2>
-      <p><strong>Upon Input, Will Return Access Token</strong></p>
-      <fieldset>
-        <legend><strong>Inputs</strong></legend>
-        <p><strong>Client ID: &ensp;</strong><input id="clientId" type="text" size="50" /></p>
-        <p><strong>Client Secret: </strong><input id="clientSecret" type="text" size="50" /></p>
-        <br>
-        <p><button id="submitButton" class="bcls-button">Get Access Token</button></p>
-      </fieldset>
-<!-- Client Creds token input END -->
+  <form id="accessTokenForm">
+    <h2>Obtain Bearer Token via Client Credentials</h2>
+    <p><strong>Upon Input, Will Return Access Token</strong></p>
+    <fieldset>
+      <legend><strong>Inputs</strong></legend>
+      <p><strong>Client ID: &ensp;</strong><input id="clientId" type="text" size="50" name="clientId" /></p>
+      <p><strong>Client Secret: </strong><input id="clientSecret" type="text" size="50" name="clientSecret" /></p>
       <br>
-      <fieldset>
+      <p><button id="accessTokenButton" class="bcls-button" type="submit">Get Access Token</button></p>
+    </fieldset>
+<!-- Client Creds token input END -->
+    <br>
+    <fieldset>
+  </form>
+
+
 <!-- Client Creds token output START -->
         <legend><strong>Output</strong></legend>
         <h3>Access token</h3>
