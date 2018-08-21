@@ -1,9 +1,9 @@
-var makeRequest = (function(window, document) {
+var processRequest = (function(window, document) {
   var $bearer_id = document.getElementById("bearer_id"),
     $requestType = document.getElementById("requestType"),
     $apiRequest = document.getElementById("apiRequest"),
     $apiBody = document.getElementById("apiBody"),
-    $submit = document.getElementById("submit"),
+    $apiRequestButton = document.getElementById("apiRequestButton"),
     $response = document.getElementById("response");
 
   // is defined
@@ -13,6 +13,7 @@ var makeRequest = (function(window, document) {
     }
     return true;
   }
+
   // function to remove spaces and line breaks
   function cleanString(str) {
     if (str !== "") {
@@ -40,6 +41,7 @@ var makeRequest = (function(window, document) {
     }
     return true;
   }
+
   // function to submit Request
   submitRequest = function() {
     var httpRequest = new XMLHttpRequest(),
@@ -48,7 +50,7 @@ var makeRequest = (function(window, document) {
     if (isDefined($bearer_id.value)) {
       options.bearer_id = $bearer_id.value;
     }
-    if (isDefined(apiBody)) {
+    if (isDefined($apiBody.value)) {
       options.apiBody = cleanString($apiBody.value);
     }
     options.requestType = $requestType.value;
@@ -96,12 +98,13 @@ var makeRequest = (function(window, document) {
     }
 
     // set request headers
+    httpRequest.setRequestHeader("Access-Control-Allow-Origin", "*");
+    httpRequest.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    httpRequest.setRequestHeader('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
     httpRequest.setRequestHeader('Authorization', 'Bearer ' + $bearer_id.value);
     httpRequest.setRequestHeader('Content-type', 'application/json');
     // open and send request
     httpRequest.send(JSON.stringify(options));
   };
-  if ($bearer_id.value !== null && $apiRequest.value !== null) {
-    $submit.addEventListener("click", submitRequest);
-  }
+  $apiRequestButton.addEventListener("click", submitRequest);
 })(window, document);

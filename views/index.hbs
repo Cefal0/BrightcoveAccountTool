@@ -332,6 +332,7 @@
 <!-- Standalone Player Testing END -->
       <br><br>
 <!-- Obtain Client Creds token input START -->
+      <form id="accessTokenForm">
       <h2>Obtain Bearer Token via Client Credentials</h2>
       <p><strong>Upon Input, Will Return Access Token</strong></p>
       <fieldset>
@@ -339,12 +340,13 @@
         <p><strong>Client ID: &nbsp;&nbsp;</strong><input id="clientId" type="text" size="65" /></p>
         <p><strong>Client Secret: </strong><input id="clientSecret" type="text" size="65" /></p>
         <br>
-        <p><button id="submitButton" class="main-button">Get Access Token</button></p>
+        <p><button id="accessTokenButton" class="main-button" type="submit">Get Access Token</button></p>
       </fieldset>
+      </form>
 <!-- Client Creds token input END -->
       <br>
-      <fieldset>
 <!-- Client Creds token output START -->
+      <fieldset>
         <legend><strong>Output</strong></legend>
         <h3>Access token</h3>
         <textarea name="accessToken" id="accessToken" class="main-code">Access token will appear here...</textarea>
@@ -355,27 +357,191 @@
 <!-- UNDER CONSTRUCTION -->
       <br><br>
 <!-- API Request input START -->
+    <form id="apiRequestForm">
       <div class="form-wrapper">
         <h2>Brightcove API Section</h2>
         <p><strong>Make Various API Requests</strong></p>
       <fieldset>
         <legend><strong>Inputs</strong></legend>
-          <p><strong>Bearer Token: </strong><input type="text" id="bearer_id" name="bearer_id" size="65"/></p>
-          <p><strong>Request Type: </strong><select name="requestType" id="requestType"><option selected="selected">GET</option><option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option></select></p>
+          <p><strong>Bearer Token: </strong>
+            <input type="text" id="bearer_id" name="bearer_id" size="65"/>
+          </p>
+
+          <p id="sideElements"><strong>Request Type: </strong>
+            <select name="requestType" id="requestType">
+              <option class="defaultWhite" value="" selected>- Select -</option>
+              <option class="getGreen">GET</option>
+              <option class="postBlue">POST</option>
+              <option class="putPurple">PUT</option>
+              <option class="patchOrange">PATCH</option>
+              <option class="delPink">DELETE</option>
+            </select>
+          </p>
+
+          <script type="text/javascript">
+          function documentReady() {
+            var selectedItem = $('#requestType :selected');
+            $('#requestType').css('backgroundColor', selectedItem.css('backgroundColor'));
+            $('#requestType').change(function() {
+              var selectedItem = $(this).find("option:selected");
+              $(this).css('backgroundColor', selectedItem.css('backgroundColor'));
+            });
+          }
+          jQuery(document).ready(documentReady);
+          </script>
+
+          <p id="sideElements"><strong>API Base: </strong>
+            <select name="apiBase" class="pathBase" id="apiBase">
+              <option value="Any" class="any">Select API Base</option>
+              <option value="https://analytics.api.brightcove.com/v1" class="analytics">Analytics</option>
+              <option value="https://audience.api.brightcove.com/v1" class="audience">Audience</option>
+              <option value="https://cms.api.brightcove.com/v1" class="cms">CMS</option>
+              <option value="https://ingest.api.brightcove.com/v1" class="dynamicIngest">Dynamic Ingest</option>
+              <option value="https://ingestion.api.brightcove.com/v1" class="ingest">Ingest Profiles</option>
+              <option value="https://experiences.api.brightcove.com/v1" class="inPage">In-Page Experiences</option>
+              <option value="https://edge.api.brightcove.com/playback/v1" class="playback">Playback</option>
+              <option value="https://players.api.brightcove.com/v2" class="playerManage">Player Management</option>
+              <option value="https://policy.api.brightcove.com/v1" class="policy">Policy</option>
+            </select>
+          </p>
+
+          <p id="sideElements"><strong>API Path: </strong>
+            <select name="apiPath" class="apiPath" id="apiPath">
+              <option value="Any" class="any">Select API Path</option>
+            </select>
+          </p>
+
+          <select id="pot">
+            <option value="Any" class="analytics">Select API Path</option>
+            <option value="/engagement/accounts/{account_id}" class="analytics">Get_Account_Engagement</option>
+            <option value="/engagement/accounts/{account_id}/players/{player_id}" class="analytics">Get_Player_Engagement</option>
+            <option value="/engagement/accounts/{account_id}/videos/{video_id}" class="analytics">Get_Video_Engagement</option>
+            <option value="/data" class="analytics">Get_Analaytics_Report</option>
+            <option value="/data/status" class="analytics">Get_Available_Date_Range</option>
+            <option value="/alltime/accounts/{account_id}/videos/{video_id}" class="analytics">Get_Alltime_Video_Views</option>
+
+            <option value="Any" class="audience">Select API Path</option>
+            <option value="/accounts/{account_id}/leads" class="audience">Get_Leads</option>
+            <option value="/accounts/{account_id}/view_events" class="audience">Get_View_Events</option>
+
+            <option value="Any" class="cms">Select API Path</option>
+            <option value="/accounts/{account_id}/videos" class="cms">Get_Videos</option>
+            <option value=" " class="cms"> </option>
+
+            <option value="Any" class="dynamicIngest">Select API Path</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/ingest-requests" class="dynamicIngest">Post_Ingest_Videos_and_Assets</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/upload-urls/{source_name}" class="dynamicIngest">Get_Temporary_S3_URLs_To_Upload_Videos</option>
+
+            <option value="Any" class="ingest">Select API Path</option>
+            <option value="/accounts/{account_id}/configuration" class="ingest">Get_Default_Profile</option>
+            <option value="/accounts/{account_id}/configuration" class="ingest">Put_Update_Default_Profile</option>
+            <option value="/accounts/{account_id}/configuration" class="ingest">Post_Set_Default_Profile</option>
+            <option value="/accounts/{account_id}/profiles" class="ingest">Get_All_Ingest_Profiles</option>
+            <option value="/accounts/{account_id}/profiles" class="ingest">Post_Create_Ingest_Profile</option>
+            <option value="/accounts/{account_id}/profiles/{profile_id}" class="ingest">Get_Ingest_Profile</option>
+            <option value="/accounts/{account_id}/profiles/{profile_id}" class="ingest">Put_Update_Ingest_Profile</option>
+            <option value="/accounts/{account_id}/profiles/{profile_id}" class="ingest">Delete_Ingest_Profile</option>
+
+            <option value="/accounts/{account_id}/experiences" class="inPage">Get_In-Page_Experiences</option>
+            <option value="/accounts/{account_id}/experiences" class="inPage">Post_Create_In-Page_Experience</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}" class="inPage">Get_In-Page_Experience</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}" class="inPage">Put_Update_In-Page_Experience</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}" class="inPage">Delete_In-Page_Experience</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}/actions/publish" class="inPage">Post_Publish_In-Page_Experience</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}/actions/unpublish" class="inPage">Post_Unpublish_In-Page_Experience</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}/actions/duplicate" class="inPage">Post_Duplicate_In-Page_Experience</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}/live/status" class="inPage">Get_In-Page_Experience_Live_Status</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}/live/status" class="inPage">Put_Set_In-Page_Experience_Live_Status</option>
+            <option value="/accounts/{account_id}/templates" class="inPage">Get_Templates</option>
+            <option value="/accounts/{account_id}/templates/{template_id}" class="inPage">Get_Template</option>
+            <option value="/accounts/{account_id}/themes" class="inPage">Get_Themes</option>
+            <option value="/accounts/{account_id}/themes" class="inPage">Post_Create_Theme</option>
+            <option value="/accounts/{account_id}/themes/{theme_id}" class="inPage">Get_Theme</option>
+            <option value="/accounts/{account_id}/themes/{theme_id}" class="inPage">Put_Update_Theme</option>
+            <option value="/accounts/{account_id}/themes/{theme_id}" class="inPage">Delete_Theme</option>
+            <option value="/accounts/{account_id}/fonts" class="inPage">Get_Fonts</option>
+            <option value="/accounts/{account_id}/fonts" class="inPage">Post_Create_Font</option>
+            <option value="/accounts/{account_id}/fonts/{font_id}" class="inPage">Get_Font</option>
+            <option value="/accounts/{account_id}/fonts/{font_id}" class="inPage">Put_Update_Font</option>
+            <option value="/accounts/{account_id}/fonts/{font_id}" class="inPage">Delete_Font</option>
+
+
+
+          </select>
+
+          <!-- <select name="analyticsPath" class="apiPath path Analytics" id="pathAnalytics">
+            <option value="" selected>- Select -</option>
+            <option value="/engagement/accounts/{account_id}">Get_Account_Engagement</option>
+            <option value="/engagement/accounts/{account_id}/players/{player_id}">Get_Player_Engagement</option>
+            <option value="/engagement/accounts/{account_id}/videos/{video_id}">Get_Video_Engagement</option>
+            <option value="/data">Get_Analaytics_Report</option>
+            <option value="/data/status">Get_Available_Date_Range</option>
+            <option value="/alltime/accounts/{account_id}/videos/{video_id}">Get_Alltime_Video_Views</option>
+          </select>
+
+          <select name="audiencePath" class="apiPath path Audience" id="pathAudience">
+            <option value="" selected>- Select -</option>
+            <option value="/accounts/{account_id}/leads">Get_Leads</option>
+            <option value="/accounts/{account_id}/view_events">Get_View_Events</option>
+          </select> -->
+          <!-- </p> -->
+
+
           <p><strong>API Request: </strong></p>
             <textarea id="apiRequest" name="apiRequest" class="main-code"></textarea>
           <p><strong>Call Body (JSON, Optional): <strong></p>
             <textarea name="apiBody" id="apiBody" class="main-code"></textarea>
           <br><br>
-          <button class="main-button" id="submit" type="submit">Submit</button>
+          <button class="main-button" id="apiRequestButton" type="submit">Submit</button>
         </fieldset>
+      </form>
+
+      <!-- Script to change/append API Base & Path URL -->
+      <script type="text/javascript">
+      $(function() {
+        $("#apiBase").change(function() {
+          var $select = $(this);
+          $("#apiRequest").val(function() {
+            var baseURL = $(this).prop('defaultValue') + $select.val();
+            console.log($(this).prop('defaultValue') + $select.val());
+            $(".apiPath").change(function() {
+              var $select = $(this);
+              $("#apiRequest").val(function() {
+                var pathURL = $(this).prop('defaultValue') + $select.val();
+                console.log($(this).prop('defaultValue') + $select.val());
+                var fullRequest = baseURL + pathURL;
+                return fullRequest;
+              });
+            });
+          });
+        });
+      });
+      </script>
+
+      <!-- Script to change show API Path depending on API Base -->
+      <script type="text/javascript">
+      $('#apiBase').change(function() {
+        // get the class of the selected option
+        var select_class = $("option:selected", this).attr("class");
+        // clone all options from the pot select
+        var $options = $('#pot > option.'+select_class).clone();
+        // delete all of the options in the apiPath select and append
+        // the new options
+        $('#apiPath')
+        .find('option')
+        .remove()
+        .end()
+        .append($options);
+      });
+    </script>
+
 <!-- API Request input END -->
         <br>
 <!-- API Request output START -->
         <fieldset>
           <legend><strong>Output</strong></legend>
           <p><strong>Response:</strong></p>
-          <textarea name="response" id="response" class="main-code">JSON Response will appear here...</textarea></p>
+          <textarea name="apiResponse" id="apiResponse" class="main-code" style="width: 1031px; height:250px;">JSON Response will appear here...</textarea>
           <br>
         </fieldset>
       </div>

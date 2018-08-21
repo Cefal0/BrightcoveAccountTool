@@ -84,3 +84,20 @@ code {
 #sideElements {
   display: inline-block;
 }
+
+/* select.path {
+  display: none;
+}
+select.path.active {
+  display: inline-block;
+}  */
+select#pot {
+  display: none;
+}
+
+.defaultWhite{background-color: #ffffff;}
+.getGreen {background-color: #6bbd5b;}
+.postBlue {background-color:#248fb2;}
+.putPurple {background-color:#9b708b;}
+.patchOrange {background-color:#e09d43;}
+.delPink {background-color:#e27a7a;}

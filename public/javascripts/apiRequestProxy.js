@@ -1,23 +1,25 @@
-var getAccessToken = (function(window, document) {
-	var clientId = document.getElementById('clientId'),
-		clientSecret = document.getElementById('clientSecret'),
-		accessToken = document.getElementById('accessToken'),
-		accessTokenForm = document.getElementById('accessTokenForm'),
-		accessTokenButton = document.getElementById('accessTokenButton'),
-		apiResponse = document.getElementById('apiResponse'),
+var makeApiRequest = (function(window, document) {
+	var bearer_id = document.getElementById('bearer_id'),
+    requestType = document.getElementById('requestType'),
+    apiBase = document.getElementById('apiBase'),
+    apiRequest = document.getElementById('apiRequest'),
+    apiBody = document.getElementById('apiBody'),
 		options = {},
-		proxyURL = 'https://cs1.brightcodes.net/jcefalo/cms_tool/proxy.php',
-		access_token;
+		proxyURL = 'https://cs1.brightcodes.net/jcefalo/acct_tool/proxy.php',
+		apiResponse;
 
-	accessTokenButton.addEventListener('click', function(evt) {
+	apiRequestButton.addEventListener('click', function(evt) {
 		evt.preventDefault();
 		let body = {
-			clientId: accessTokenForm.elements.clientId.value,
-			clientSecret: accessTokenForm.elements.clientSecret.value
+      bearer_id: accessTokenForm.elements.bearer_id.value,
+      requestType: accessTokenForm.elements.requestType.value,
+      apiBase: accessTokenForm.elements.apiBase.value,
+      apiRequest: accessTokenForm.elements.apiRequest.value,
+      apiBody: accessTokenForm.elements.apiBody.value
 		};
-		if (isDefined(clientId.value) && isDefined(clientSecret.value)) {
+		if (isDefined(bearer_id.value) && isDefined(apiRequest.value)) {
 		// console.log(body); // checking purposes
-		fetch('/getAccessToken', {
+		fetch('/makeApiRequest', {
 			method: 'POST',
 			body: JSON.stringify(body),
 			headers: {
@@ -31,11 +33,11 @@ var getAccessToken = (function(window, document) {
 			.then(function(data) {
 				// `data` is the parsed version of the JSON returned from the above endpoint.
 				// console.log(data); // checking purposes
-				accessToken.innerText = data;
+				apiResponse.innerText = data;
 			});
 		}
 		else {
-			alert("Client ID & Client Secret Required");
+			alert("Bearer Token & API Request Required");
 		}
 	});
 
