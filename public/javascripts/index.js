@@ -6,7 +6,7 @@ var getAccessToken = (function(window, document) {
 		accessTokenButton = document.getElementById('accessTokenButton'),
 		apiResponse = document.getElementById('apiResponse'),
 		options = {},
-		proxyURL = 'https://cs1.brightcodes.net/jcefalo/cms_tool/proxy.php',
+		proxyURL = 'https://cs1.brightcodes.net/jcefalo/acct_tool/proxy.php',
 		access_token;
 
 	accessTokenButton.addEventListener('click', function(evt) {

@@ -318,10 +318,10 @@
         <!-- Player Config Build -->
         <script type="text/javascript">
         function playerConfig() {
-          var acctVariable = document.getElementById("acctId").value;
-          var playerVariable = document.getElementById("playerId").value;
+          const acctVariable = document.getElementById("acctId").value;
+          const playerVariable = document.getElementById("playerId").value;
           if(acctVariable && playerVariable) {
-            var newWindow = window.open("https://players.brightcove.net/" + document.getElementById('acctId').value + "/" + document.getElementById('playerId').value + "_default/config.json");
+            var newWindow = window.open(`https://players.brightcove.net/${acctVariable}/${playerVariable}_default/config.json`);
           }
           else {
             alert("Publisher ID & Player ID Required");
@@ -370,11 +370,11 @@
           <p id="sideElements"><strong>Request Type: </strong>
             <select name="requestType" id="requestType">
               <option class="defaultWhite" value="" selected>- Select -</option>
-              <option class="getGreen">GET</option>
-              <option class="postBlue">POST</option>
-              <option class="putPurple">PUT</option>
-              <option class="patchOrange">PATCH</option>
-              <option class="delPink">DELETE</option>
+              <option class="getRequest getGreen">GET</option>
+              <option class="postRequest postBlue">POST</option>
+              <option class="putRequest putPurple">PUT</option>
+              <option class="patchRequest patchOrange">PATCH</option>
+              <option class="delRequest delPink">DELETE</option>
             </select>
           </p>
 
@@ -392,7 +392,7 @@
 
           <p id="sideElements"><strong>API Base: </strong>
             <select name="apiBase" class="pathBase" id="apiBase">
-              <option value="Any" class="any">Select API Base</option>
+              <option value="" class="any analytics audience cms dynamicIngest ingest inPage playback playerManage policy">Select API Base</option>
               <option value="https://analytics.api.brightcove.com/v1" class="analytics">Analytics</option>
               <option value="https://audience.api.brightcove.com/v1" class="audience">Audience</option>
               <option value="https://cms.api.brightcove.com/v1" class="cms">CMS</option>
@@ -412,80 +412,169 @@
           </p>
 
           <select id="pot">
-            <option value="Any" class="analytics">Select API Path</option>
-            <option value="/engagement/accounts/{account_id}" class="analytics">Get_Account_Engagement</option>
-            <option value="/engagement/accounts/{account_id}/players/{player_id}" class="analytics">Get_Player_Engagement</option>
-            <option value="/engagement/accounts/{account_id}/videos/{video_id}" class="analytics">Get_Video_Engagement</option>
-            <option value="/data" class="analytics">Get_Analaytics_Report</option>
-            <option value="/data/status" class="analytics">Get_Available_Date_Range</option>
-            <option value="/alltime/accounts/{account_id}/videos/{video_id}" class="analytics">Get_Alltime_Video_Views</option>
+            <!-- Analytics API -->
+            <option value="" class="analytics getRequest postRequest putRequest patchRequest delRequest">Select API Path</option>
+            <option value="/engagement/accounts/{account_id}" class="analytics getRequest">Get Account Engagement</option>
+            <option value="/engagement/accounts/{account_id}/players/{player_id}" class="analytics getRequest">Get Player Engagement</option>
+            <option value="/engagement/accounts/{account_id}/videos/{video_id}" class="analytics getRequest">Get Video Engagement</option>
+            <option value="/data?accounts={account_id}&dimensions=account" class="analytics getRequest">Get Analaytics Report</option>
+            <option value="/data/status" class="analytics getRequest">Get Available Date Range</option>
+            <option value="/alltime/accounts/{account_id}/videos/{video_id}" class="analytics getRequest">Get Alltime Video Views</option>
 
-            <option value="Any" class="audience">Select API Path</option>
-            <option value="/accounts/{account_id}/leads" class="audience">Get_Leads</option>
-            <option value="/accounts/{account_id}/view_events" class="audience">Get_View_Events</option>
+            <!-- Audience API -->
+            <option value="" class="audience getRequest postRequest putRequest patchRequest delRequest">Select API Path</option>
+            <option value="/accounts/{account_id}/leads" class="audience getRequest">Get Leads</option>
+            <option value="/accounts/{account_id}/view_events" class="audience getRequest">Get View Events</option>
 
-            <option value="Any" class="cms">Select API Path</option>
-            <option value="/accounts/{account_id}/videos" class="cms">Get_Videos</option>
-            <option value=" " class="cms"> </option>
+            <!-- CMS API -->
+            <option value="" class="cms getRequest postRequest putRequest patchRequest delRequest">Select API Path</option>
+            <option value="/accounts/{account_id}/videos" class="cms getRequest">Get Videos</option>
+            <option value="/accounts/{account_id}/videos" class="cms postRequest">Create Videos</option>
+            <option value="/accounts/{account_id}/counts/videos" class="cms getRequest">Get Video Count</option>
+            <option value="/accounts/{account_id}/videos/{video_id}" class="cms getRequest">Get Video by Id or Reference Id</option>
+            <option value="/accounts/{account_id}/videos/{video_id}" class="cms delRequest">Delete Video</option>
+            <option value="/accounts/{account_id}/videos/{video_id}" class="cms patchRequest">Update Video</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/sources" class="cms getRequest">Get Video Sources</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/images" class="cms getRequest">Get Video Images</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/audio_tracks" class="cms getRequest">Get Video Audio Tracks</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/audio_tracks/{audio_track_id}" class="cms getRequest">Get Video Audio Track</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/audio_tracks/{audio_track_id}" class="cms patchRequest">Update Video Audio Track</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/audio_tracks/{audio_track_id}" class="cms delRequest">Delete Video Audio Track</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/digital_master" class="cms getRequest">Get Digiital Master Info</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/digital_master" class="cms delRequest">Delete Digital Master</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/references" class="cms getRequest">Get Playlists for Video</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/references" class="cms delRequest">Remove Video From All Playlists</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/ingest_jobs" class="cms getRequest">Get Status of Ingest Jobs</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/ingest_jobs/{job_id}" class="cms getRequest">Get Status of Ingest Job</option>
+            <option value="/accounts/{account_id}/video_fields" class="cms getRequest">Get Custom Fields</option>
+            <option value="/accounts/{account_id}/channels" class="cms getRequest">List Channels</option>
+            <option value="/accounts/{account_id}/channels/{channel_name}" class="cms getRequest">Get Channel Details</option>
+            <option value="/accounts/{account_id}/channels/{channel_name}" class="cms patchRequest">Update Channel</option>
+            <option value="/accounts/{account_id}/channels/{channel_name}/members" class="cms getRequest">List Channel Affiliates</option>
+            <option value="/accounts/{account_id}/channels/{channel_name}/members/{affiliate_account_id}" class="cms putRequest">Add Affiliate</option>
+            <option value="/accounts/{account_id}/channels/{channel_name}/members/{affiliate_account_id}" class="cms delRequest">Remove Affiliate</option>
+            <option value="/accounts/{account_id}/contracts/" class="cms getRequest">Approve Contract</option>
+            <option value="/accounts/{account_id}/contracts/" class="cms patchRequest">Approve Contract</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/shares" class="cms getRequest">List Shares</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/shares" class="cms postRequest">Share Video</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/shares/{affiliate_account_id}" class="cms getRequest">Get Share</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/shares/{affiliate_account_id}" class="cms delRequest">Unshare Video</option>
+            <option value="/accounts/{account_id}/playlists" class="cms getRequest">Get Playlists</option>
+            <option value="/accounts/{account_id}/playlists" class="cms postRequest">Create Playlist</option>
+            <option value="/accounts/{account_id}/counts/playlists" class="cms getRequest">Get Playlist Count</option>
+            <option value="/accounts/{account_id}/playlists/{playlist_id}" class="cms getRequest">Get Playlist By Id</option>
+            <option value="/accounts/{account_id}/playlists/{playlist_id}" class="cms patchRequest">Update Playlist</option>
+            <option value="/accounts/{account_id}/playlists/{playlist_id}" class="cms delRequest">Delete Playlist</option>
+            <option value="/accounts/{account_id}/playlists/{playlist_id}/videos" class="cms getRequest">Get Videos in Playlist</option>
+            <option value="/accounts/{account_id}/counts/playlists/{playlist_id}/videos" class="cms getRequest">Get Video Count in Playlist</option>
+            <option value="/accounts/{account_id}/folders" class="cms getRequest">Get Folders</option>
+            <option value="/accounts/{account_id}/folders" class="cms postRequest">Create Folder</option>
+            <option value="/accounts/{account_id}/folders/{folder_id}" class="cms getRequest">Get Folder Information</option>
+            <option value="/accounts/{account_id}/folders/{folder_id}" class="cms patchRequest">Update Folder Name</option>
+            <option value="/accounts/{account_id}/folders/{folder_id}" class="cms delRequest">Delete Folder</option>
+            <option value="/accounts/{account_id}/folders/{folder_id}/videos" class="cms getRequest">Get Videos in Folder</option>
+            <option value="/accounts/{account_id}/folders/{folder_id}/videos/{video_id}" class="cms putRequest">Add Video to Folder</option>
+            <option value="/accounts/{account_id}/folders/{folder_id}/videos/{video_id}" class="cms delRequest">Remove Video from Folder</option>
+            <option value="/accounts/{account_id}/subscriptions" class="cms getRequest">Get Subscriptions List</option>
+            <option value="/accounts/{account_id}/subscriptions" class="cms postRequest">Create Subscription</option>
+            <option value="/accounts/{account_id}/subscriptions/{subscription_id}" class="cms getRequest">Get Subscription</option>
+            <option value="/accounts/{account_id}/subscriptions/{subscription_id}" class="cms delRequest">Delete Subscription</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets" class="cms getRequest">Get Assets</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/dynamic_renditions" class="cms getRequest">Get Dynamic Renditions</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/renditions" class="cms getRequest">Get Rendition List</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/renditions" class="cms postRequest">Add Rendition</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/renditions/{asset_id}" class="cms getRequest">Get Rendition</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/renditions/{asset_id}" class="cms patchRequest">Update Rendition</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/renditions/{asset_id}" class="cms delRequest">Delete Rendition</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/poster" class="cms getRequest">Get Poster List (Legacy)</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/poster" class="cms postRequest">Add Poster (Legacy)</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/poster/{asset_id}" class="cms getRequest">Get Poster (Legacy)</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/poster/{asset_id}" class="cms patchRequest">Update Poster (Legacy)</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/poster/{asset_id}" class="cms delRequest">Delete Poster (Legacy)</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/thumbnail" class="cms getRequest">Get Thumbnail List (Legacy)</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/thumbnail" class="cms postRequest">Add Thumbnail (Legacy)</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/thumbnail/{asset_id}" class="cms getRequest">Get Thumbnail (Legacy)</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/thumbnail/{asset_id}" class="cms patchRequest">Update Thumbnail (Legacy)</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/thumbnail/{asset_id}" class="cms delRequest">Delete Thumbnail (Legacy)</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/caption" class="cms getRequest">Get Caption List (Legacy)</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/caption" class="cms postRequest">Add Caption (Legacy)</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/caption/{asset_id}" class="cms getRequest">Get Caption (Legacy)</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/caption/{asset_id}" class="cms patchRequest">Update Caption (Legacy)</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/assets/caption/{asset_id}" class="cms delRequest">Delete Caption (Legacy)</option>
+            <option value="" class="cms "></option>
 
-            <option value="Any" class="dynamicIngest">Select API Path</option>
-            <option value="/accounts/{account_id}/videos/{video_id}/ingest-requests" class="dynamicIngest">Post_Ingest_Videos_and_Assets</option>
-            <option value="/accounts/{account_id}/videos/{video_id}/upload-urls/{source_name}" class="dynamicIngest">Get_Temporary_S3_URLs_To_Upload_Videos</option>
+            <!-- Dynamic Ingest API -->
+            <option value="" class="dynamicIngest getRequest postRequest putRequest patchRequest delRequest">Select API Path</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/ingest-requests" class="dynamicIngest postRequest">Ingest Videos and Assets</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/upload-urls/{source_name}" class="dynamicIngest getRequest">Get Temporary S3 URLs To Upload Videos</option>
 
-            <option value="Any" class="ingest">Select API Path</option>
-            <option value="/accounts/{account_id}/configuration" class="ingest">Get_Default_Profile</option>
-            <option value="/accounts/{account_id}/configuration" class="ingest">Put_Update_Default_Profile</option>
-            <option value="/accounts/{account_id}/configuration" class="ingest">Post_Set_Default_Profile</option>
-            <option value="/accounts/{account_id}/profiles" class="ingest">Get_All_Ingest_Profiles</option>
-            <option value="/accounts/{account_id}/profiles" class="ingest">Post_Create_Ingest_Profile</option>
-            <option value="/accounts/{account_id}/profiles/{profile_id}" class="ingest">Get_Ingest_Profile</option>
-            <option value="/accounts/{account_id}/profiles/{profile_id}" class="ingest">Put_Update_Ingest_Profile</option>
-            <option value="/accounts/{account_id}/profiles/{profile_id}" class="ingest">Delete_Ingest_Profile</option>
+            <!-- Ingest API -->
+            <option value="" class="ingest getRequest postRequest putRequest patchRequest delRequest">Select API Path</option>
+            <option value="/accounts/{account_id}/configuration" class="ingest getRequest">Get Default Profile</option>
+            <option value="/accounts/{account_id}/configuration" class="ingest putRequest">Update Default Profile</option>
+            <option value="/accounts/{account_id}/configuration" class="ingest postRequest">Set Default Profile</option>
+            <option value="/accounts/{account_id}/profiles" class="ingest getRequest">Get All Ingest Profiles</option>
+            <option value="/accounts/{account_id}/profiles" class="ingest postRequest">Create Ingest Profile</option>
+            <option value="/accounts/{account_id}/profiles/{profile_id}" class="ingest getRequest">Get Ingest Profile</option>
+            <option value="/accounts/{account_id}/profiles/{profile_id}" class="ingest putRequest">Update Ingest Profile</option>
+            <option value="/accounts/{account_id}/profiles/{profile_id}" class="ingest delRequest">Delete Ingest Profile</option>
 
-            <option value="/accounts/{account_id}/experiences" class="inPage">Get_In-Page_Experiences</option>
-            <option value="/accounts/{account_id}/experiences" class="inPage">Post_Create_In-Page_Experience</option>
-            <option value="/accounts/{account_id}/experiences/{experience_id}" class="inPage">Get_In-Page_Experience</option>
-            <option value="/accounts/{account_id}/experiences/{experience_id}" class="inPage">Put_Update_In-Page_Experience</option>
-            <option value="/accounts/{account_id}/experiences/{experience_id}" class="inPage">Delete_In-Page_Experience</option>
-            <option value="/accounts/{account_id}/experiences/{experience_id}/actions/publish" class="inPage">Post_Publish_In-Page_Experience</option>
-            <option value="/accounts/{account_id}/experiences/{experience_id}/actions/unpublish" class="inPage">Post_Unpublish_In-Page_Experience</option>
-            <option value="/accounts/{account_id}/experiences/{experience_id}/actions/duplicate" class="inPage">Post_Duplicate_In-Page_Experience</option>
-            <option value="/accounts/{account_id}/experiences/{experience_id}/live/status" class="inPage">Get_In-Page_Experience_Live_Status</option>
-            <option value="/accounts/{account_id}/experiences/{experience_id}/live/status" class="inPage">Put_Set_In-Page_Experience_Live_Status</option>
-            <option value="/accounts/{account_id}/templates" class="inPage">Get_Templates</option>
-            <option value="/accounts/{account_id}/templates/{template_id}" class="inPage">Get_Template</option>
-            <option value="/accounts/{account_id}/themes" class="inPage">Get_Themes</option>
-            <option value="/accounts/{account_id}/themes" class="inPage">Post_Create_Theme</option>
-            <option value="/accounts/{account_id}/themes/{theme_id}" class="inPage">Get_Theme</option>
-            <option value="/accounts/{account_id}/themes/{theme_id}" class="inPage">Put_Update_Theme</option>
-            <option value="/accounts/{account_id}/themes/{theme_id}" class="inPage">Delete_Theme</option>
-            <option value="/accounts/{account_id}/fonts" class="inPage">Get_Fonts</option>
-            <option value="/accounts/{account_id}/fonts" class="inPage">Post_Create_Font</option>
-            <option value="/accounts/{account_id}/fonts/{font_id}" class="inPage">Get_Font</option>
-            <option value="/accounts/{account_id}/fonts/{font_id}" class="inPage">Put_Update_Font</option>
-            <option value="/accounts/{account_id}/fonts/{font_id}" class="inPage">Delete_Font</option>
+            <!-- In-Page API -->
+            <option value="" class="inPage getRequest postRequest putRequest patchRequest delRequest">Select API Path</option>
+            <option value="/accounts/{account_id}/experiences" class="inPage postRequest">Create In-Page Experience</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}" class="inPage getRequest">Get In-Page Experience</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}" class="inPage putRequest">Update In-Page Experience</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}" class="inPage delRequest">Delete In-Page Experience</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}/actions/publish" class="inPage postRequest">Publish In-Page Experience</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}/actions/unpublish" class="inPage postRequest">Unpublish In-Page Experience</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}/actions/duplicate" class="inPage postRequest">Duplicate In-Page Experience</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}/live/status" class="inPage getRequest">Get In-Page Experience Live Status</option>
+            <option value="/accounts/{account_id}/experiences/{experience_id}/live/status" class="inPage putRequest">Set In-Page Experience Live Status</option>
+            <option value="/accounts/{account_id}/templates" class="inPage getRequest">Get Templates</option>
+            <option value="/accounts/{account_id}/templates/{template_id}" class="inPage getRequest">Get Template</option>
+            <option value="/accounts/{account_id}/themes" class="inPage getRequest">Get Themes</option>
+            <option value="/accounts/{account_id}/themes" class="inPage postRequest">Create Theme</option>
+            <option value="/accounts/{account_id}/themes/{theme_id}" class="inPage getRequest">Get Theme</option>
+            <option value="/accounts/{account_id}/themes/{theme_id}" class="inPage putRequest">Update Theme</option>
+            <option value="/accounts/{account_id}/themes/{theme_id}" class="inPage delRequest">Delete Theme</option>
+            <option value="/accounts/{account_id}/fonts" class="inPage getRequest">Get Fonts</option>
+            <option value="/accounts/{account_id}/fonts" class="inPage postRequest">Create Font</option>
+            <option value="/accounts/{account_id}/fonts/{font_id}" class="inPage getRequest">Get Font</option>
+            <option value="/accounts/{account_id}/fonts/{font_id}" class="inPage putRequest">Update Font</option>
+            <option value="/accounts/{account_id}/fonts/{font_id}" class="inPage delRequest">Delete Font</option>
 
+            <!-- Playback API -->
+            <option value="" class="playback getRequest postRequest putRequest patchRequest delRequest">Select API Path</option>
+            <option value="/accounts/{account_id}/playlists/{playlist_id}" class="playback getRequest">Get Playlist By Id Or Reference Id</option>
+            <option value="/accounts/{account_id}/videos/{video_id}/related" class="playback getRequest">Get Related Videos By Id Or Reference Id</option>
+            <option value="/accounts/{account_id}/videos/{video_id}" class="playback getRequest">Get Video By Id Or Reference Id</option>
+            <option value="/accounts/{account_id}/videos" class="playback getRequest">Get Videos</option>
 
+            <!-- Player Management API -->
+            <option value="" class="playerManage getRequest postRequest putRequest patchRequest delRequest">Select API Path</option>
+            <option value="/accounts/{account_id}/players" class="playerManage getRequest">Get A List Of Players</option>
+            <option value="/accounts/{account_id}/players" class="playerManage postRequest">Create A Player</option>
+            <option value="/accounts/{account_id}/players/{player_id}" class="playerManage getRequest">Get A Single Player</option>
+            <option value="/accounts/{account_id}/players/{player_id}" class="playerManage patchRequest">Update A Player By Id</option>
+            <option value="/accounts/{account_id}/players/{player_id}" class="playerManage delRequest">Delete A Player By Id</option>
+            <option value="/accounts/{account_id}/players/{player_id}/publish" class="playerManage postRequest">Publish A Player</option>
+            <option value="/accounts/{account_id}/players/{player_id}/configuration/{branch}" class="playerManage getRequest">Get Player Configuration</option>
+            <option value="/accounts/{account_id}/players/{player_id}/configuration" class="playerManage patchRequest">Update Player Configuation</option>
+            <option value="/plugins" class="playerManage getRequest">Get All Plugins</option>
+            <option value="/plugins/{plugin_id}" class="playerManage getRequest">Get A Single Plugin</option>
+            <option value="/accounts/{account_id}/players/{player_id}/embeds" class="playerManage getRequest">Get All The Embeds For A Player</option>
+            <option value="/accounts/{account_id}/players/{player_id}/embeds" class="playerManage postRequest">Create An Embed</option>
+            <option value="/accounts/{account_id}/players/{player_id}/embeds/{embed_id}" class="playerManage getRequest">Get A Specific Embed For A Player</option>
+            <option value="/accounts/{account_id}/players/{player_id}/embeds/{embed_id}" class="playerManage delRequest">Delete An Embed</option>
+            <option value="/accounts/{account_id}/players/{player_id}/embeds/{embed_id}/configuration/{branch}" class="playerManage getRequest">Get Player Embed Configuration</option>
+            <option value="/accounts/{account_id}/players/{player_id}/embeds/{embed_id}/configuration/" class="playerManage patchRequest">Update Embed Configuration</option>
+            <option value="/accounts/:account_id/players/:player_id/embeds/:embedID/configuration/merged" class="playerManage getRequest">Get Configuration Combinations</option>
 
+            <!-- Policy API -->
+            <option value="" class="policy getRequest postRequest putRequest patchRequest delRequest">Select API Path</option>
+            <option value="/accounts/{account_id}/policy_keys" class="policy postRequest">Create A Policy Key</option>
+            <option value="/accounts/{account_id}/policy_keys/{key_string}" class="policy getRequest">Get Policy</option>
           </select>
-
-          <!-- <select name="analyticsPath" class="apiPath path Analytics" id="pathAnalytics">
-            <option value="" selected>- Select -</option>
-            <option value="/engagement/accounts/{account_id}">Get_Account_Engagement</option>
-            <option value="/engagement/accounts/{account_id}/players/{player_id}">Get_Player_Engagement</option>
-            <option value="/engagement/accounts/{account_id}/videos/{video_id}">Get_Video_Engagement</option>
-            <option value="/data">Get_Analaytics_Report</option>
-            <option value="/data/status">Get_Available_Date_Range</option>
-            <option value="/alltime/accounts/{account_id}/videos/{video_id}">Get_Alltime_Video_Views</option>
-          </select>
-
-          <select name="audiencePath" class="apiPath path Audience" id="pathAudience">
-            <option value="" selected>- Select -</option>
-            <option value="/accounts/{account_id}/leads">Get_Leads</option>
-            <option value="/accounts/{account_id}/view_events">Get_View_Events</option>
-          </select> -->
-          <!-- </p> -->
-
 
           <p><strong>API Request: </strong></p>
             <textarea id="apiRequest" name="apiRequest" class="main-code"></textarea>
@@ -496,7 +585,7 @@
         </fieldset>
       </form>
 
-      <!-- Script to change/append API Base & Path URL -->
+      <!-- Script to change/append API Base & Path URL to TextArea (apiRequest)-->
       <script type="text/javascript">
       $(function() {
         $("#apiBase").change(function() {
@@ -520,18 +609,103 @@
 
       <!-- Script to change show API Path depending on API Base -->
       <script type="text/javascript">
-      $('#apiBase').change(function() {
-        // get the class of the selected option
-        var select_class = $("option:selected", this).attr("class");
+      $('#requestType').change(function() {
+        var select_class_type = $("option:selected", this).attr("class").split(' ')[0];
+        console.log(select_class_type);
         // clone all options from the pot select
-        var $options = $('#pot > option.'+select_class).clone();
-        // delete all of the options in the apiPath select and append
+        var $options_type = $('#pot > option.'+select_class_type);
+        console.log($options_type);
+        // delete all of the options in the township select and append
         // the new options
-        $('#apiPath')
-        .find('option')
+        $('#apiBase')
+        .find()
         .remove()
-        .end()
-        .append($options);
+        .end();
+
+      $('#apiBase').change(function() {
+      // get the class of the selected option
+        var select_class_base = $("option:selected", this).attr("class");
+        console.log(select_class_base);
+        // clone all options from the pot select
+        var $options_base = $('#pot > option.'+select_class_base).clone();
+        console.log($options_base);
+
+        var $options_type_get = $($options_base).hasClass("getRequest");
+        var $options_type_post = $($options_base).hasClass("postRequest");
+        var $options_type_put = $($options_base).hasClass("putRequest");
+        var $options_type_patch = $($options_base).hasClass("patchRequest");
+        var $options_type_del = $($options_base).hasClass("delRequest");
+
+
+        var $checkGetReq = $($options_base).filter(".getRequest");
+        var $checkPostReq = $($options_base).filter(".postRequest");
+        var $checkPutReq = $($options_base).filter(".putRequest");
+        var $checkPatchReq = $($options_base).filter(".patchRequest");
+        var $checkDelReq = $($options_base).filter(".delRequest");
+
+        // delete all of the options in the apiBase select and append
+        // the new options
+        if($options_type_get == true && select_class_type == "getRequest") {
+          $('#apiPath')
+          .find()
+          .remove()
+          .end()
+          .empty()
+          .append($checkGetReq);
+          $("#requestType").on("click", function () {
+            $('#apiBase').prop('selectedIndex',0);
+            $('#apiPath').prop('selectedIndex',0);
+          });
+        }
+        else if($options_type_post == true && select_class_type == "postRequest") {
+          $('#apiPath')
+          .find()
+          .remove()
+          .end()
+          .empty()
+          .append($checkPostReq);
+          $("#requestType").on("click", function () {
+            $('#apiBase').prop('selectedIndex',0);
+            $('#apiPath').prop('selectedIndex',0);
+          });
+        }
+        else if($options_type_put == true && select_class_type == "putRequest") {
+          $('#apiPath')
+          .find()
+          .remove()
+          .end()
+          .empty()
+          .append($checkPutReq);
+          $("#requestType").on("click", function () {
+            $('#apiBase').prop('selectedIndex',0);
+            $('#apiPath').prop('selectedIndex',0);
+          });
+        }
+        else if($options_type_patch == true && select_class_type == "patchRequest") {
+          $('#apiPath')
+          .find()
+          .remove()
+          .end()
+          .empty()
+          .append($checkPatchReq);
+          $("#requestType").on("click", function () {
+            $('#apiBase').prop('selectedIndex',0);
+            $('#apiPath').prop('selectedIndex',0);
+          });
+        }
+        else {
+          $('#apiPath')
+          .find()
+          .remove()
+          .end()
+          .empty()
+          .append($checkDelReq);
+          $("#requestType").on("click", function () {
+            $('#apiBase').prop('selectedIndex',0);
+            $('#apiPath').prop('selectedIndex',0);
+          });
+        }
+        });
       });
     </script>
 

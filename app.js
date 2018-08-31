@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/getAccessToken', AccessTokenRouter);
+//app to use what endpoint when accessed
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
