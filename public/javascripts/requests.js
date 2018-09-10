@@ -9,12 +9,13 @@ var makeApiRequest = (function(window, document) {
     apiRequestButton = document.getElementById('apiRequestButton'),
     apiRequestForm = document.getElementById('apiRequestForm'),
 		options = {},
-		proxyURL = './requestProxy.php',
 		api_response;
 
 	apiRequestButton.addEventListener('click', function(evt) {
 		evt.preventDefault();
 		let body = {
+			bearer_id: apiRequestForm.elements.bearer_id.value,
+			requestType: apiRequestForm.elements.requestType.value,
 			apiRequest: apiRequestForm.elements.apiRequest.value,
 			apiBody: apiRequestForm.elements.apiBody.value
 		};
@@ -22,19 +23,21 @@ var makeApiRequest = (function(window, document) {
 		if (isDefined(bearer_id.value) && isDefined(apiRequest.value)) {
 		console.log(body); // checking purposes
 		fetch('/makeApiRequest', {
-			method: 'GET',
+			method: 'POST',
+			body: JSON.stringify(body),
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json'
 			}
 		})
 			.then(response => {
+				console.log(response);
 				return response.json();
 			})
 			.then(function(data) {
 				// `data` is the parsed version of the JSON returned from the above endpoint.
 				console.log(data); // checking purposes
-				apiResponse.innerText = data;
+				apiResponse.innerText = JSON.stringify(data);
 			});
 		}
 		else {
@@ -66,43 +69,5 @@ var makeApiRequest = (function(window, document) {
 			return false;
 		}
 		return true;
-	}
-
-	/**
-	 * send API request to the proxy
-	 * @param  {Object} options options for the request
-	 * @param  {String} requestID the type of request = id of the button
-	 * @param  {Function} [callback] callback function
-	 */
-	function makeRequest(options, callback) {
-		var httpRequest = new XMLHttpRequest(),
-			responseRaw,
-			requestParams,
-			// response handler
-			getResponse = function() {
-				try {
-					if (httpRequest.readyState === 4) {
-						if (httpRequest.status >= 200 && httpRequest.status < 300) {
-							console.log("response", httpRequest.responseText);
-							// check for completion
-							responseRaw = JSON.parse(httpRequest.responseText);
-							callback(responseRaw);
-						}
-					}
-				} catch (e) {
-					alert('Caught Exception: ' + e);
-				}
-			};
-		// set up request data
-		requestParams = 'bearer_id=' + options.bearer_id + '&apiRequest=' + options.apiRequest;
-		// set response handler
-		httpRequest.onreadystatechange = getResponse;
-		// open the request
-		httpRequest.open('GET', proxyURL);
-		// set headers
-		httpRequest.setRequestHeader("Access-Control-Allow-Origin", "*");
-		httpRequest.setRequestHeader('Content-Type', 'application/json');
-		// open and send request
-		httpRequest.send(requestParams);
 	}
 })(window, document);

@@ -4,7 +4,6 @@ var getAccessToken = (function(window, document) {
 		accessToken = document.getElementById('accessToken'),
 		accessTokenForm = document.getElementById('accessTokenForm'),
 		accessTokenButton = document.getElementById('accessTokenButton'),
-		apiResponse = document.getElementById('apiResponse'),
 		options = {},
 		proxyURL = 'https://cs1.brightcodes.net/jcefalo/acct_tool/proxy.php',
 		access_token;

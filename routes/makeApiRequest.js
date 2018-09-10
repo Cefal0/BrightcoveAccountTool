@@ -1,21 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const request = require('request-promise-native');
-/* GET requets */
+/* post requets */
 router.post('/', function(req, res, next) {
-	console.log(req);
-	const bearerToken = Buffer.from(`${req.body.bearer_id}`).toString('base64');
+	console.log(req.body);
+	const bearerToken = req.body.bearer_id
 	const makeApiRequest = request({
-		method: 'GET',
+		method: req.body.requestType,
 		url: `${req.body.apiRequest}`,
 		headers: {
 			Authorization: `Bearer ${bearerToken}`,
 			'Content-Type': 'application/json'
-		}
+		},
+		body: req.body.apiBody
 	}).then(response => {
 		const apiResponse = JSON.parse(response).api_response;
 		console.log(apiResponse);
-		res.json(apiResponse);
+		return res.json(JSON.stringify(apiResponse));
+	}).catch(err => {
+		return res.json(err);
 	});
 });
 
