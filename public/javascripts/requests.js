@@ -1,27 +1,28 @@
 var makeApiRequest = (function(window, document) {
 	var bearer_id = document.getElementById('bearer_id'),
-    requestType = document.getElementById('requestType'),
-    apiBase = document.getElementById('apiBase'),
-    apiRequest = document.getElementById('apiRequest'),
+		requestType = document.getElementById('requestType'),
+		apiBase = document.getElementById('apiBase'),
+		apiPath = document.getElementById('apiPath'),
+		apiRequest = document.getElementById('apiRequest'),
     apiBody = document.getElementById('apiBody'),
+		apiResponse = document.getElementById('apiResponse'),
+    apiRequestButton = document.getElementById('apiRequestButton'),
+    apiRequestForm = document.getElementById('apiRequestForm'),
 		options = {},
-		proxyURL = 'https://cs1.brightcodes.net/jcefalo/acct_tool/proxy.php',
-		apiResponse;
+		proxyURL = './requestProxy.php',
+		api_response;
 
 	apiRequestButton.addEventListener('click', function(evt) {
 		evt.preventDefault();
 		let body = {
-      bearer_id: accessTokenForm.elements.bearer_id.value,
-      requestType: accessTokenForm.elements.requestType.value,
-      apiBase: accessTokenForm.elements.apiBase.value,
-      apiRequest: accessTokenForm.elements.apiRequest.value,
-      apiBody: accessTokenForm.elements.apiBody.value
+			apiRequest: apiRequestForm.elements.apiRequest.value,
+			apiBody: apiRequestForm.elements.apiBody.value
 		};
+    console.log("Button is Clicked");
 		if (isDefined(bearer_id.value) && isDefined(apiRequest.value)) {
-		// console.log(body); // checking purposes
+		console.log(body); // checking purposes
 		fetch('/makeApiRequest', {
-			method: 'POST',
-			body: JSON.stringify(body),
+			method: 'GET',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json'
@@ -32,12 +33,12 @@ var makeApiRequest = (function(window, document) {
 			})
 			.then(function(data) {
 				// `data` is the parsed version of the JSON returned from the above endpoint.
-				// console.log(data); // checking purposes
+				console.log(data); // checking purposes
 				apiResponse.innerText = data;
 			});
 		}
 		else {
-			alert("Bearer Token & API Request Required");
+			alert("Bearer Token & API Call Required");
 		}
 	});
 
@@ -82,8 +83,9 @@ var makeApiRequest = (function(window, document) {
 				try {
 					if (httpRequest.readyState === 4) {
 						if (httpRequest.status >= 200 && httpRequest.status < 300) {
+							console.log("response", httpRequest.responseText);
 							// check for completion
-							responseRaw = httpRequest.responseText;
+							responseRaw = JSON.parse(httpRequest.responseText);
 							callback(responseRaw);
 						}
 					}
@@ -92,14 +94,14 @@ var makeApiRequest = (function(window, document) {
 				}
 			};
 		// set up request data
-		requestParams = 'client_id=' + options.client_id + '&client_secret=' + options.client_secret;
-
+		requestParams = 'bearer_id=' + options.bearer_id + '&apiRequest=' + options.apiRequest;
 		// set response handler
 		httpRequest.onreadystatechange = getResponse;
 		// open the request
-		httpRequest.open('POST', proxyURL);
+		httpRequest.open('GET', proxyURL);
 		// set headers
-		httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		httpRequest.setRequestHeader("Access-Control-Allow-Origin", "*");
+		httpRequest.setRequestHeader('Content-Type', 'application/json');
 		// open and send request
 		httpRequest.send(requestParams);
 	}

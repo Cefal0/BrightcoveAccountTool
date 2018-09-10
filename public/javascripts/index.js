@@ -15,8 +15,9 @@ var getAccessToken = (function(window, document) {
 			clientId: accessTokenForm.elements.clientId.value,
 			clientSecret: accessTokenForm.elements.clientSecret.value
 		};
+		console.log("Button is Clicked");
 		if (isDefined(clientId.value) && isDefined(clientSecret.value)) {
-		// console.log(body); // checking purposes
+		console.log(body); // checking purposes
 		fetch('/getAccessToken', {
 			method: 'POST',
 			body: JSON.stringify(body),
@@ -30,7 +31,7 @@ var getAccessToken = (function(window, document) {
 			})
 			.then(function(data) {
 				// `data` is the parsed version of the JSON returned from the above endpoint.
-				// console.log(data); // checking purposes
+				console.log(data); // checking purposes
 				accessToken.innerText = data;
 			});
 		}

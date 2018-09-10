@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index'); // index.js
 var AccessTokenRouter = require('./routes/getAccessToken'); // getAccessToken.js
-var makeApiRequest = require('./routes/makeApiRequest'); // place js path for apiRequests
+var makeApiRequestRouter = require('./routes/makeApiRequest'); // place js path for apiRequests
 
 
 var app = express();
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/getAccessToken', AccessTokenRouter);
-//app to use what endpoint when accessed
+app.use('/makeApiRequest', makeApiRequestRouter);//app to use what endpoint when accessed
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

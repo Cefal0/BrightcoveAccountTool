@@ -1,22 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const request = require('request-promise-native');
-/* GET home page. */
+/* GET requets */
 router.post('/', function(req, res, next) {
 	console.log(req);
-	const authString = Buffer.from(`${req.body.clientId}:${req.body.clientSecret}`).toString('base64');
-	const getAccessToken = request({
-		method: 'POST',
-		url: 'https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials',
+	const bearerToken = Buffer.from(`${req.body.bearer_id}`).toString('base64');
+	const makeApiRequest = request({
+		method: 'GET',
+		url: `${req.body.apiRequest}`,
 		headers: {
-			Authorization: `Basic ${authString}`,
-			'Content-Type': 'application/x-www-form-urlencoded'
-		},
-		body: 'grant_type=client_credentials'
+			Authorization: `Bearer ${bearerToken}`,
+			'Content-Type': 'application/json'
+		}
 	}).then(response => {
-		const accessToken = JSON.parse(response).access_token;
-		console.log(accessToken);
-		res.json(accessToken);
+		const apiResponse = JSON.parse(response).api_response;
+		console.log(apiResponse);
+		res.json(apiResponse);
 	});
 });
 
