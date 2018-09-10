@@ -14,9 +14,10 @@ router.post('/', function(req, res, next) {
 		},
 		body: req.body.apiBody
 	}).then(response => {
-		const apiResponse = JSON.parse(response).api_response;
+		// const apiResponse = JSON.parse(response).api_response;
+		const apiResponse = response.api_response;
 		console.log(apiResponse);
-		return res.json(JSON.stringify(apiResponse));
+		return res.json(apiResponse);
 	}).catch(err => {
 		return res.json(err);
 	});
