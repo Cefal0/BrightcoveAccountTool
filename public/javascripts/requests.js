@@ -8,6 +8,7 @@ var makeApiRequest = (function(window, document) {
     apiResponse = document.getElementById("apiResponse"),
     apiRequestButton = document.getElementById("apiRequestButton"),
     apiRequestForm = document.getElementById("apiRequestForm"),
+    response_status = document.getElementById("response_status"),
     options = {},
     api_response;
 
@@ -32,12 +33,35 @@ var makeApiRequest = (function(window, document) {
       })
         .then(response => {
           console.log(response);
-          return response.json();
+          if(response.status >= 200 && response.status < 300) {
+            response_status.innerText = response.status;
+            return response.json();
+          }
         })
         .then(function(data) {
           // `data` is the parsed version of the JSON returned from the above endpoint.
           console.log(data); // checking purposes
-          apiResponse.innerText = JSON.stringify(data);
+          console.log(data.statusCode);
+          if(apiRequestForm.elements.requestType.value === "GET") {
+            if(data.statusCode >= 400) {
+            response_status.innerText = data.statusCode;
+            apiResponse.innerText = data.error;
+            } else {
+              apiResponse.innerText = data;
+            }
+          }
+          else {
+            if(data.statusCode >= 400) {
+              response_status.innerText = data.statusCode;
+              apiResponse.innerText = data.error;
+            } else {
+              apiResponse.innerText = JSON.stringify(data, null, 4);
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          apiResponse.innerText = err;
         });
     } else {
       alert("Bearer Token & API Call Required");
@@ -51,20 +75,6 @@ var makeApiRequest = (function(window, document) {
    */
   function isDefined(x) {
     if (x === "" || x === null || x === undefined) {
-      return false;
-    }
-    return true;
-  }
-
-  /*
- * tests to see if a string is json
- * @param {String} str string to test
- * @return {Boolean}
- */
-  function isJson(str) {
-    try {
-      JSON.parse(str);
-    } catch (e) {
       return false;
     }
     return true;
