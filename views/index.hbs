@@ -614,7 +614,7 @@
         console.log(select_class_type);
         // clone all options from the pot select
         var $options_type = $('#pot > option.'+select_class_type);
-        console.log($options_type);
+        // console.log($options_type);
         // delete all of the options in the township select and append
         // the new options
         $('#apiBase')
@@ -628,7 +628,7 @@
         console.log(select_class_base);
         // clone all options from the pot select
         var $options_base = $('#pot > option.'+select_class_base).clone();
-        console.log($options_base);
+        // console.log($options_base);
 
         var $options_type_get = $($options_base).hasClass("getRequest");
         var $options_type_post = $($options_base).hasClass("postRequest");
@@ -714,7 +714,9 @@
 <!-- API Request output START -->
         <fieldset>
           <legend><strong>Output</strong></legend>
-          <p><strong>Response:</strong></p>
+          <p><strong>Response Staus Code: </strong>
+            <textarea type="text" id="response_status" name="response_status" rows="1" cols="6" readonly style="resize: none; margin-bottom: -5px;"></textarea>
+          </p>
           <textarea name="apiResponse" id="apiResponse" class="main-code" style="width: 1031px; height:250px;">JSON Response will appear here...</textarea>
           <br>
         </fieldset>
