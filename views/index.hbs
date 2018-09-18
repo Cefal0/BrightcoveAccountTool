@@ -1,6 +1,6 @@
 <body>
-  <div class="main row">
-    <div class="column main-code code">
+  <div class="main" style="align: center;">
+    <div class="main-code code">
 <!-- Document Search Functions START -->
       <h2>Support Docs and Tickets Search</h2>
       <p><strong>JIRA, SalesForce, Support Docs Search</strong></p>
@@ -276,7 +276,7 @@
         <br>
         <button class="main-button" onclick="iframeLoad()">iFrame Embed</button>
         <button class="main-button" onclick="advancedLoad()">Advanced Embed</button>
-        <button class="main-button" onclick="playerConfig()">Player Config</button>
+        <button class="main-button" onclick="playerConfig()">Player Configuration</button>
 
         <!-- iFrame Embed Build -->
         <script type="text/javascript">
@@ -329,12 +329,9 @@
         }
         </script>
       </fieldset>
-      <br>
-    </div>
 <!-- Standalone Player Testing END -->
       <br><br>
 <!-- Obtain Client Creds token input START -->
-    <div class="column main-code code">
       <form id="accessTokenForm">
       <h2>Obtain Bearer Token via Client Credentials</h2>
       <p><strong>Upon Input, Will Return Access Token</strong></p>
@@ -367,7 +364,7 @@
       <fieldset>
         <legend><strong>Inputs</strong></legend>
           <p><strong>Bearer Token: </strong>
-            <input type="text" id="bearer_id" name="bearer_id" size="76"/>
+            <input type="text" id="bearer_id" name="bearer_id" size="65"/>
           </p>
 
           <p id="sideElements"><strong>Request Type: </strong>
@@ -723,11 +720,7 @@
           <textarea name="apiResponse" id="apiResponse" class="main-code" style="width: 1031px; height:250px;">JSON Response will appear here...</textarea>
           <br>
         </fieldset>
-        <br>
       </div>
 <!-- API Request output END -->
-    </div>
-  </div>
     <br><br>
-    <style>
 </body>
