@@ -85,12 +85,6 @@ code {
   display: inline-block;
 }
 
-/* select.path {
-  display: none;
-}
-select.path.active {
-  display: inline-block;
-}  */
 select#pot {
   display: none;
 }
