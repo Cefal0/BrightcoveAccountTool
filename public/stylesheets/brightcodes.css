@@ -1,16 +1,16 @@
 a {
 	color: #D32784;
 }
-
+body {background: #1bb9d5;}
 .main {
-	background: #1bb9d5;
+	/* background: #1bb9d5; */
 	max-width: 1300px;
 	padding: 20px;
 	border-radius: 10px;
 	vertical-align: center;
 	font-family: Sans-Serif;
 	text-align: justify;
-	margin: 20px;
+	/* margin: 20px; */
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -37,4 +37,7 @@ h1, h2, h3, h4, h5, h6, p {
 	margin-top: 5px;
 	height: 100%;
   border-radius: 10px;
+	border-color: #92C334;
+	border-style: double;
+	border-width: 5px;
 }
