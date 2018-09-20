@@ -17,7 +17,7 @@ var getAccessToken = (function(window, document) {
     console.log("Button is Clicked");
     if (isDefined(clientId.value) && isDefined(clientSecret.value)) {
       console.log(body); // checking purposes
-      fetch("/getAccessToken", {
+      fetch("http://xicsprojects:4000/getAccessToken", {
         method: "POST",
         body: JSON.stringify(body),
         headers: {
