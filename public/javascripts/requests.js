@@ -26,11 +26,7 @@ var makeApiRequest = (function(window, document) {
     // console.log("Button is Clicked");
     if (isDefined(bearer_id.value) && isDefined(apiRequest.value) || isDefined(policy_key.value) && isDefined(apiRequest.value)) {
       // console.log(body); // checking purposes
-<<<<<<< HEAD
-      fetch("http://xicsprojects:4000//makeApiRequest", {
-=======
       fetch("http://xicsprojects:4000/makeApiRequest", {
->>>>>>> xicsprojects
         method: "POST",
         body: JSON.stringify(body),
         headers: {
