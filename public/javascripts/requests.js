@@ -1,5 +1,6 @@
 var makeApiRequest = (function(window, document) {
   var bearer_id = document.getElementById("bearer_id"),
+    policy_key = document.getElementById("policy_key"),
     requestType = document.getElementById("requestType"),
     apiBase = document.getElementById("apiBase"),
     apiPath = document.getElementById("apiPath"),
@@ -16,13 +17,15 @@ var makeApiRequest = (function(window, document) {
     evt.preventDefault();
     let body = {
       bearer_id: apiRequestForm.elements.bearer_id.value,
+      policy_key: apiRequestForm.elements.policy_key.value,
+      apiBase: apiRequestForm.elements.apiBase.value,
       requestType: apiRequestForm.elements.requestType.value,
       apiRequest: apiRequestForm.elements.apiRequest.value,
       apiBody: apiRequestForm.elements.apiBody.value
     };
-    console.log("Button is Clicked");
-    if (isDefined(bearer_id.value) && isDefined(apiRequest.value)) {
-      console.log(body); // checking purposes
+    // console.log("Button is Clicked");
+    if (isDefined(bearer_id.value) && isDefined(apiRequest.value) || isDefined(policy_key.value) && isDefined(apiRequest.value)) {
+      // console.log(body); // checking purposes
       fetch("http://xicsprojects:4000/makeApiRequest", {
         method: "POST",
         body: JSON.stringify(body),
@@ -32,7 +35,7 @@ var makeApiRequest = (function(window, document) {
         }
       })
         .then(response => {
-          console.log(response);
+          // console.log(response);
           if(response.status >= 200 && response.status < 300) {
             response_status.innerText = response.status;
             return response.json();
@@ -40,9 +43,17 @@ var makeApiRequest = (function(window, document) {
         })
         .then(function(data) {
           // `data` is the parsed version of the JSON returned from the above endpoint.
-          console.log(data); // checking purposes
-          console.log(data.statusCode);
-          if(apiRequestForm.elements.requestType.value === "GET") {
+          // console.log(data); // checking purposes
+          // console.log(data.statusCode);
+          if(apiRequestForm.elements.apiBase.value === "https://edge.api.brightcove.com/playback/v1") {
+            if(data.statusCode >= 400) {
+              response_status.innerText = data.statusCode;
+              apiResponse.innerText = data.error;
+            } else {
+              apiResponse.innerText = JSON.stringify(data, null, 4);
+            }
+          }
+          else if(apiRequestForm.elements.requestType.value === "GET") {
             if(data.statusCode >= 400) {
             response_status.innerText = data.statusCode;
             apiResponse.innerText = data.error;
@@ -60,11 +71,11 @@ var makeApiRequest = (function(window, document) {
           }
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
           apiResponse.innerText = err;
         });
     } else {
-      alert("Bearer Token & API Call Required");
+      alert("Bearer Token/Policy Key & API Call Required");
     }
   });
 

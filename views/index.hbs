@@ -366,8 +366,11 @@
         <p><strong>Make Various API Requests</strong></p>
       <fieldset>
         <legend><strong>Inputs</strong></legend>
-          <p><strong>Bearer Token: </strong>
+          <p id="sideElements"><strong>Bearer Token: </strong>
             <input type="text" id="bearer_id" name="bearer_id" size="65"/>
+          </p>
+          <p id="sideElements"><strong>Policy Key: </strong>
+            <input type="text" id="policy_key" name="policy_key" size="65"/>
           </p>
 
           <p id="sideElements"><strong>Request Type: </strong>
@@ -595,12 +598,12 @@
           var $select = $(this);
           $("#apiRequest").val(function() {
             var baseURL = $(this).prop('defaultValue') + $select.val();
-            console.log($(this).prop('defaultValue') + $select.val());
+            // console.log($(this).prop('defaultValue') + $select.val());
             $(".apiPath").change(function() {
               var $select = $(this);
               $("#apiRequest").val(function() {
                 var pathURL = $(this).prop('defaultValue') + $select.val();
-                console.log($(this).prop('defaultValue') + $select.val());
+                // console.log($(this).prop('defaultValue') + $select.val());
                 var fullRequest = baseURL + pathURL;
                 return fullRequest;
               });
@@ -614,7 +617,7 @@
       <script type="text/javascript">
       $('#requestType').change(function() {
         var select_class_type = $("option:selected", this).attr("class").split(' ')[0];
-        console.log(select_class_type);
+        // console.log(select_class_type);
         // clone all options from the pot select
         var $options_type = $('#pot > option.'+select_class_type);
         // console.log($options_type);
@@ -628,7 +631,7 @@
       $('#apiBase').change(function() {
       // get the class of the selected option
         var select_class_base = $("option:selected", this).attr("class");
-        console.log(select_class_base);
+        // console.log(select_class_base);
         // clone all options from the pot select
         var $options_base = $('#pot > option.'+select_class_base).clone();
         // console.log($options_base);
